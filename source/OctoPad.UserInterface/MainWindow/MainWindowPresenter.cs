@@ -35,7 +35,7 @@ namespace OctoPad.UserInterface.MainWindow
             
             if(!octopus.Connect(loginCredentials?.Server, loginCredentials?.ApiKey))
             {
-                view.ShowLoginWindow();
+                view.ShowLoginWindow(loginCredentials);
             }
             else
             {
@@ -57,7 +57,7 @@ namespace OctoPad.UserInterface.MainWindow
 
         private void View_ShowLoginWindowClicked(object sender, System.EventArgs e)
         {
-            view.ShowLoginWindow();
+            view.ShowLoginWindow(settings.LoginCredentials);
         }
     }
 }

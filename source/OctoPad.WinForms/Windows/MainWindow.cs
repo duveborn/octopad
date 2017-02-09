@@ -54,11 +54,13 @@ namespace OctoPad.WinForms.Windows
             ShowLoginWindowClicked?.Invoke(sender, e);
         }
 
-        public void ShowLoginWindow()
+        public void ShowLoginWindow(LoginCredentials loginCredentials)
         {
             using (var loginWindow = new LoginWindow())
             {
                 loginWindow.StartPosition = FormStartPosition.CenterParent;
+                loginWindow.LoginCredentials = loginCredentials;
+
                 var result = loginWindow.ShowDialog();
                 if (result == DialogResult.OK)
                 {

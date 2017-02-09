@@ -96,7 +96,7 @@ namespace OctoPad.Repository.Octopus
                 Name = group.Name,
                 Id = group.Id,
                 Projects = projects.Where(project => project.ProjectGroupId == group.Id),
-            }).ToList();
+            }).Where(projectGroup => projectGroup.Name != "All Projects").ToList();
 
             return projectGroups.ToList();
         }

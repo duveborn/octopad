@@ -66,6 +66,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\DoubleBufferedTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Windows\LoginWindow.cs">
       <SubType>Form</SubType>
     </Compile>

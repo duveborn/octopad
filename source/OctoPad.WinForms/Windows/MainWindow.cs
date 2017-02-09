@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using MetroFramework.Controls;
 using OctoPad.Models;
@@ -38,7 +41,8 @@ namespace OctoPad.WinForms.Windows
 
                 foreach (var rootNode in rootNodes)
                 {
-                    rootNode.ExpandAll(); // Expand the root nodes instead of the treeview keeps the scroll position
+                    // Expand the root nodes instead of the treeview keeps the scroll position
+                    rootNode.ExpandAll(); 
                 }
 
                 projectsTreeView.Nodes.AddRange(rootNodes.ToArray());
@@ -79,7 +83,19 @@ namespace OctoPad.WinForms.Windows
 
         private void FilterTextBox_TextChanged(object sender, EventArgs e)
         {
-            // TODO: Filter treeview on all nodes while keeping visually the correct node structure for matching nodes
+            var filteredRootNodes = projectGroups.Select(
+                    projectGroup => new TreeNode(projectGroup.Name, projectGroup.Projects.Where(
+                            project => CultureInfo.CurrentCulture.CompareInfo.IndexOf(project.Name, filterTextBox.Text, CompareOptions.IgnoreCase) >= 0).Select(
+                            project => new TreeNode(project.Name))
+                        .ToArray()))
+                .ToList();
+
+            filteredRootNodes.ForEach(node => node.ExpandAll());
+
+            projectsTreeView.BeginUpdate();
+            projectsTreeView.Nodes.Clear();
+            projectsTreeView.Nodes.AddRange(filteredRootNodes.Where(rootNode => rootNode.Nodes.Count > 0).ToArray());
+            projectsTreeView.EndUpdate();
         }
 
         private void FilterTextBox_KeyDown(object sender, KeyEventArgs e)

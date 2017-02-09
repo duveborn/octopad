@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using Octopus.Client.Model;
 
 namespace OctoPad.Models
 {
@@ -13,5 +15,7 @@ namespace OctoPad.Models
         public string Description { get; set; }
         [Browsable(false)]
         public bool IsDisabled { get; set; }
+        [Browsable(false)]
+        public List<Link> Links { get; set; }
     }
 }

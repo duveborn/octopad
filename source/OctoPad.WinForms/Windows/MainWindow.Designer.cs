@@ -35,21 +35,19 @@ namespace OctoPad.WinForms.Windows
             this.connectButton = new MetroFramework.Controls.MetroButton();
             this.filterTextBox = new MetroFramework.Controls.MetroTextBox();
             this.selectedProjectTabControl = new System.Windows.Forms.TabControl();
-            this.releasesTab = new System.Windows.Forms.TabPage();
+            this.projectTab = new System.Windows.Forms.TabPage();
             this.releasesListView = new System.Windows.Forms.ListView();
             this.releaseColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.settingsTab = new System.Windows.Forms.TabPage();
-            this.settingsRichTextBox = new System.Windows.Forms.RichTextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.projectWebBrowser = new System.Windows.Forms.WebBrowser();
             ((System.ComponentModel.ISupportInitialize)(this.mainWindowSplitContainer)).BeginInit();
             this.mainWindowSplitContainer.Panel1.SuspendLayout();
             this.mainWindowSplitContainer.Panel2.SuspendLayout();
             this.mainWindowSplitContainer.SuspendLayout();
             this.selectedProjectTabControl.SuspendLayout();
-            this.releasesTab.SuspendLayout();
-            this.settingsTab.SuspendLayout();
+            this.projectTab.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -84,6 +82,7 @@ namespace OctoPad.WinForms.Windows
             this.projectsTreeView.Name = "projectsTreeView";
             this.projectsTreeView.Size = new System.Drawing.Size(463, 624);
             this.projectsTreeView.TabIndex = 3;
+            this.projectsTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.projectsTreeView_AfterSelect);
             // 
             // connectButton
             // 
@@ -135,24 +134,24 @@ namespace OctoPad.WinForms.Windows
             this.selectedProjectTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.selectedProjectTabControl.Controls.Add(this.releasesTab);
-            this.selectedProjectTabControl.Controls.Add(this.settingsTab);
+            this.selectedProjectTabControl.Controls.Add(this.projectTab);
             this.selectedProjectTabControl.Location = new System.Drawing.Point(3, 3);
             this.selectedProjectTabControl.Name = "selectedProjectTabControl";
             this.selectedProjectTabControl.SelectedIndex = 0;
             this.selectedProjectTabControl.Size = new System.Drawing.Size(523, 648);
             this.selectedProjectTabControl.TabIndex = 1;
             // 
-            // releasesTab
+            // projectTab
             // 
-            this.releasesTab.Controls.Add(this.releasesListView);
-            this.releasesTab.Location = new System.Drawing.Point(4, 22);
-            this.releasesTab.Name = "releasesTab";
-            this.releasesTab.Padding = new System.Windows.Forms.Padding(3);
-            this.releasesTab.Size = new System.Drawing.Size(515, 622);
-            this.releasesTab.TabIndex = 0;
-            this.releasesTab.Text = "Releases";
-            this.releasesTab.UseVisualStyleBackColor = true;
+            this.projectTab.Controls.Add(this.projectWebBrowser);
+            this.projectTab.Controls.Add(this.releasesListView);
+            this.projectTab.Location = new System.Drawing.Point(4, 22);
+            this.projectTab.Name = "projectTab";
+            this.projectTab.Padding = new System.Windows.Forms.Padding(3);
+            this.projectTab.Size = new System.Drawing.Size(515, 622);
+            this.projectTab.TabIndex = 0;
+            this.projectTab.Text = "Project";
+            this.projectTab.UseVisualStyleBackColor = true;
             // 
             // releasesListView
             // 
@@ -173,27 +172,6 @@ namespace OctoPad.WinForms.Windows
             // 
             this.releaseColumnHeader.Text = "Release";
             this.releaseColumnHeader.Width = 519;
-            // 
-            // settingsTab
-            // 
-            this.settingsTab.Controls.Add(this.settingsRichTextBox);
-            this.settingsTab.Location = new System.Drawing.Point(4, 22);
-            this.settingsTab.Name = "settingsTab";
-            this.settingsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.settingsTab.Size = new System.Drawing.Size(515, 622);
-            this.settingsTab.TabIndex = 1;
-            this.settingsTab.Text = "Settings";
-            this.settingsTab.UseVisualStyleBackColor = true;
-            // 
-            // settingsRichTextBox
-            // 
-            this.settingsRichTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.settingsRichTextBox.Location = new System.Drawing.Point(3, 3);
-            this.settingsRichTextBox.Name = "settingsRichTextBox";
-            this.settingsRichTextBox.ReadOnly = true;
-            this.settingsRichTextBox.Size = new System.Drawing.Size(509, 616);
-            this.settingsRichTextBox.TabIndex = 0;
-            this.settingsRichTextBox.Text = "";
             // 
             // statusStrip1
             // 
@@ -219,6 +197,15 @@ namespace OctoPad.WinForms.Windows
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(0, 17);
             // 
+            // projectWebBrowser
+            // 
+            this.projectWebBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.projectWebBrowser.Location = new System.Drawing.Point(3, 3);
+            this.projectWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.projectWebBrowser.Name = "projectWebBrowser";
+            this.projectWebBrowser.Size = new System.Drawing.Size(509, 616);
+            this.projectWebBrowser.TabIndex = 1;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -234,8 +221,7 @@ namespace OctoPad.WinForms.Windows
             ((System.ComponentModel.ISupportInitialize)(this.mainWindowSplitContainer)).EndInit();
             this.mainWindowSplitContainer.ResumeLayout(false);
             this.selectedProjectTabControl.ResumeLayout(false);
-            this.releasesTab.ResumeLayout(false);
-            this.settingsTab.ResumeLayout(false);
+            this.projectTab.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -253,10 +239,9 @@ namespace OctoPad.WinForms.Windows
         private System.Windows.Forms.ListView releasesListView;
         private System.Windows.Forms.ColumnHeader releaseColumnHeader;
         private System.Windows.Forms.TabControl selectedProjectTabControl;
-        private System.Windows.Forms.TabPage releasesTab;
-        private System.Windows.Forms.TabPage settingsTab;
-        private System.Windows.Forms.RichTextBox settingsRichTextBox;
+        private System.Windows.Forms.TabPage projectTab;
         private DoubleBufferedTreeView projectsTreeView;
+        private System.Windows.Forms.WebBrowser projectWebBrowser;
     }
 }
 

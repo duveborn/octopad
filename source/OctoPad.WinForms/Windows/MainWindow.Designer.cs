@@ -1,4 +1,6 @@
-﻿namespace OctoPad.WinForms.Windows
+﻿using OctoPad.WinForms.Controls;
+
+namespace OctoPad.WinForms.Windows
 {
     partial class MainWindow
     {
@@ -29,26 +31,26 @@
         private void InitializeComponent()
         {
             this.mainWindowSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.projectsTreeView = new System.Windows.Forms.TreeView();
+            this.projectsTreeView = new OctoPad.WinForms.Controls.DoubleBufferedTreeView();
             this.connectButton = new MetroFramework.Controls.MetroButton();
             this.filterTextBox = new MetroFramework.Controls.MetroTextBox();
+            this.selectedProjectTabControl = new System.Windows.Forms.TabControl();
+            this.releasesTab = new System.Windows.Forms.TabPage();
             this.releasesListView = new System.Windows.Forms.ListView();
             this.releaseColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.settingsTab = new System.Windows.Forms.TabPage();
+            this.settingsRichTextBox = new System.Windows.Forms.RichTextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.selectedProjectTabControl = new System.Windows.Forms.TabControl();
-            this.releasesTab = new System.Windows.Forms.TabPage();
-            this.settingsTab = new System.Windows.Forms.TabPage();
-            this.settingsRichTextBox = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.mainWindowSplitContainer)).BeginInit();
             this.mainWindowSplitContainer.Panel1.SuspendLayout();
             this.mainWindowSplitContainer.Panel2.SuspendLayout();
             this.mainWindowSplitContainer.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             this.selectedProjectTabControl.SuspendLayout();
             this.releasesTab.SuspendLayout();
             this.settingsTab.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainWindowSplitContainer
@@ -128,6 +130,30 @@
             this.filterTextBox.TextChanged += new System.EventHandler(this.FilterTextBox_TextChanged);
             this.filterTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FilterTextBox_KeyDown);
             // 
+            // selectedProjectTabControl
+            // 
+            this.selectedProjectTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.selectedProjectTabControl.Controls.Add(this.releasesTab);
+            this.selectedProjectTabControl.Controls.Add(this.settingsTab);
+            this.selectedProjectTabControl.Location = new System.Drawing.Point(3, 3);
+            this.selectedProjectTabControl.Name = "selectedProjectTabControl";
+            this.selectedProjectTabControl.SelectedIndex = 0;
+            this.selectedProjectTabControl.Size = new System.Drawing.Size(523, 648);
+            this.selectedProjectTabControl.TabIndex = 1;
+            // 
+            // releasesTab
+            // 
+            this.releasesTab.Controls.Add(this.releasesListView);
+            this.releasesTab.Location = new System.Drawing.Point(4, 22);
+            this.releasesTab.Name = "releasesTab";
+            this.releasesTab.Padding = new System.Windows.Forms.Padding(3);
+            this.releasesTab.Size = new System.Drawing.Size(515, 622);
+            this.releasesTab.TabIndex = 0;
+            this.releasesTab.Text = "Releases";
+            this.releasesTab.UseVisualStyleBackColor = true;
+            // 
             // releasesListView
             // 
             this.releasesListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -147,6 +173,27 @@
             // 
             this.releaseColumnHeader.Text = "Release";
             this.releaseColumnHeader.Width = 519;
+            // 
+            // settingsTab
+            // 
+            this.settingsTab.Controls.Add(this.settingsRichTextBox);
+            this.settingsTab.Location = new System.Drawing.Point(4, 22);
+            this.settingsTab.Name = "settingsTab";
+            this.settingsTab.Padding = new System.Windows.Forms.Padding(3);
+            this.settingsTab.Size = new System.Drawing.Size(515, 622);
+            this.settingsTab.TabIndex = 1;
+            this.settingsTab.Text = "Settings";
+            this.settingsTab.UseVisualStyleBackColor = true;
+            // 
+            // settingsRichTextBox
+            // 
+            this.settingsRichTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.settingsRichTextBox.Location = new System.Drawing.Point(3, 3);
+            this.settingsRichTextBox.Name = "settingsRichTextBox";
+            this.settingsRichTextBox.ReadOnly = true;
+            this.settingsRichTextBox.Size = new System.Drawing.Size(509, 616);
+            this.settingsRichTextBox.TabIndex = 0;
+            this.settingsRichTextBox.Text = "";
             // 
             // statusStrip1
             // 
@@ -172,51 +219,6 @@
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(0, 17);
             // 
-            // selectedProjectTabControl
-            // 
-            this.selectedProjectTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.selectedProjectTabControl.Controls.Add(this.releasesTab);
-            this.selectedProjectTabControl.Controls.Add(this.settingsTab);
-            this.selectedProjectTabControl.Location = new System.Drawing.Point(3, 3);
-            this.selectedProjectTabControl.Name = "selectedProjectTabControl";
-            this.selectedProjectTabControl.SelectedIndex = 0;
-            this.selectedProjectTabControl.Size = new System.Drawing.Size(523, 648);
-            this.selectedProjectTabControl.TabIndex = 1;
-            // 
-            // releasesTab
-            // 
-            this.releasesTab.Controls.Add(this.releasesListView);
-            this.releasesTab.Location = new System.Drawing.Point(4, 22);
-            this.releasesTab.Name = "releasesTab";
-            this.releasesTab.Padding = new System.Windows.Forms.Padding(3);
-            this.releasesTab.Size = new System.Drawing.Size(515, 622);
-            this.releasesTab.TabIndex = 0;
-            this.releasesTab.Text = "Releases";
-            this.releasesTab.UseVisualStyleBackColor = true;
-            // 
-            // settingsTab
-            // 
-            this.settingsTab.Controls.Add(this.settingsRichTextBox);
-            this.settingsTab.Location = new System.Drawing.Point(4, 22);
-            this.settingsTab.Name = "settingsTab";
-            this.settingsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.settingsTab.Size = new System.Drawing.Size(515, 622);
-            this.settingsTab.TabIndex = 1;
-            this.settingsTab.Text = "Settings";
-            this.settingsTab.UseVisualStyleBackColor = true;
-            // 
-            // settingsRichTextBox
-            // 
-            this.settingsRichTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.settingsRichTextBox.Location = new System.Drawing.Point(3, 3);
-            this.settingsRichTextBox.Name = "settingsRichTextBox";
-            this.settingsRichTextBox.ReadOnly = true;
-            this.settingsRichTextBox.Size = new System.Drawing.Size(509, 616);
-            this.settingsRichTextBox.TabIndex = 0;
-            this.settingsRichTextBox.Text = "";
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -231,11 +233,11 @@
             this.mainWindowSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mainWindowSplitContainer)).EndInit();
             this.mainWindowSplitContainer.ResumeLayout(false);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.selectedProjectTabControl.ResumeLayout(false);
             this.releasesTab.ResumeLayout(false);
             this.settingsTab.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -248,13 +250,13 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripProgressBar statusProgressBar;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
-        private System.Windows.Forms.TreeView projectsTreeView;
         private System.Windows.Forms.ListView releasesListView;
         private System.Windows.Forms.ColumnHeader releaseColumnHeader;
         private System.Windows.Forms.TabControl selectedProjectTabControl;
         private System.Windows.Forms.TabPage releasesTab;
         private System.Windows.Forms.TabPage settingsTab;
         private System.Windows.Forms.RichTextBox settingsRichTextBox;
+        private DoubleBufferedTreeView projectsTreeView;
     }
 }
 

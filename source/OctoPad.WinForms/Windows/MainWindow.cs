@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using MetroFramework.Controls;
 using OctoPad.Models;
@@ -15,6 +14,7 @@ namespace OctoPad.WinForms.Windows
     {
         public event EventHandler ShowLoginWindowClicked;
         public event EventHandler AcquiredLoginCredentials;
+        public event EventHandler SelectedProjectChanged;
 
         private List<ProjectGroup> projectGroups;
 
@@ -36,18 +36,22 @@ namespace OctoPad.WinForms.Windows
                 projectGroups = value;
                 projectsTreeView.Nodes.Clear();
 
-                var rootNodes = projectGroups.Select(projectGroup => new TreeNode(projectGroup.Name,
-                    projectGroup.Projects.Select(project => new TreeNode(project.Name)).ToArray())).ToArray();
+                var rootNodes = projectGroups.Select(
+                    projectGroup => new TreeNode(projectGroup.Name, projectGroup.Projects.Select(
+                        project => new TreeNode(project.Name) {Tag = project })
+                        .ToArray()))
+                    .ToArray();
 
                 foreach (var rootNode in rootNodes)
                 {
-                    // Expand the root nodes instead of the treeview keeps the scroll position
                     rootNode.ExpandAll(); 
                 }
 
                 projectsTreeView.Nodes.AddRange(rootNodes.ToArray());
             }
         }
+
+        public Project SelectedProject { get; set; }
 
         private void ConnectButton_Click(object sender, EventArgs e)
         {
@@ -88,7 +92,7 @@ namespace OctoPad.WinForms.Windows
             var filteredRootNodes = projectGroups.Select(
                     projectGroup => new TreeNode(projectGroup.Name, projectGroup.Projects.Where(
                             project => CultureInfo.CurrentCulture.CompareInfo.IndexOf(project.Name, filterTextBox.Text, CompareOptions.IgnoreCase) >= 0).Select(
-                            project => new TreeNode(project.Name))
+                            project => new TreeNode(project.Name) { Tag = project })
                         .ToArray()))
                 .ToList();
 
@@ -109,6 +113,21 @@ namespace OctoPad.WinForms.Windows
 
             ((MetroTextBox) sender)?.SelectAll();
             e.Handled = true;
+        }
+
+        private void projectsTreeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            SelectedProject = projectsTreeView.SelectedNode.Tag as Project;
+
+            if (SelectedProject != null)
+            {
+                SelectedProjectChanged?.Invoke(sender, e);
+            }
+        }
+
+        public void ShowProjectDetails(string url)
+        {
+            projectWebBrowser.Navigate(url);
         }
     }
 }

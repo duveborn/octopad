@@ -87,7 +87,12 @@ namespace OctoPad.Repository.Octopus
             {
                 Name = p.Name,
                 Id = p.Id,
-                ProjectGroupId = p.ProjectGroupId
+                ProjectGroupId = p.ProjectGroupId,
+                Links = p.Links.Select(link => new Link
+                {
+                    Name = link.Key,
+                    Uri = link.Value
+                }).ToList()
                 //Environments = FilterEnvironments(environments, projectGroupResources, p.ProjectGroupId).ToList()
             }).ToList();
 
@@ -99,18 +104,6 @@ namespace OctoPad.Repository.Octopus
             }).Where(projectGroup => projectGroup.Name != "All Projects").ToList();
 
             return projectGroups.ToList();
-        }
-
-        private IEnumerable<Environment> FilterEnvironments(List<Environment> environments, List<ProjectGroupResource> projectGroupResources, string projectGroupId)
-        {
-            var environmentIds = projectGroupResources.Find(p => p.Id == projectGroupId).EnvironmentIds;
-
-            if (environmentIds.Count > 0)
-            {
-                return environments.Where(e => environmentIds.Contains(e.Name));
-            }
-
-            return environments;
         }
 
         public List<ProjectGroup> GetDashboard()

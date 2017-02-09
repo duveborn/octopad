@@ -10,33 +10,36 @@ namespace OctoPad.UserInterface.MainWindow
     public class MainWindowPresenter
     {
         private readonly IMainWindowView view;
-        private readonly IOctoPadRepository repository;
+        private readonly IOctoPadRepository octopus;
+        private readonly ISettingsRepository settings;
         private LoginCredentials loginCredentials;
 
-        public MainWindowPresenter(IMainWindowView view, IOctoPadRepository repository)
+        public MainWindowPresenter(IMainWindowView view, IOctoPadRepository octopus, ISettingsRepository settings)
         {
             this.view = view;
             this.view.ShowLoginWindowClicked += View_ShowLoginWindowClicked;
             this.view.AcquiredLoginCredentials += View_AcquiredLoginCredentials;
 
-            this.repository = repository;
+            this.octopus = octopus;
+            this.settings = settings;
         }
 
         private async Task<List<Release>> GetReleasesFromRepository(string projectId)
         {
-            return await Task.Run(() => repository.GetReleases(projectId));
+            return await Task.Run(() => octopus.GetReleases(projectId));
         }
 
         private async void View_AcquiredLoginCredentials(object sender, System.EventArgs e)
         {
             loginCredentials = sender as LoginCredentials;
             
-            if(!repository.Connect(loginCredentials?.Server, loginCredentials?.ApiKey))
+            if(!octopus.Connect(loginCredentials?.Server, loginCredentials?.ApiKey))
             {
                 view.ShowLoginWindow();
             }
             else
             {
+                settings.LoginCredentials = loginCredentials;
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
                 view.ShowProgress("Loading projects");
@@ -49,7 +52,7 @@ namespace OctoPad.UserInterface.MainWindow
 
         private async Task<List<ProjectGroup>> GetProjectTree()
         {
-            return await Task.Run(() => repository.GetProjectGroupTree());
+            return await Task.Run(() => octopus.GetProjectGroupTree());
         }
 
         private void View_ShowLoginWindowClicked(object sender, System.EventArgs e)

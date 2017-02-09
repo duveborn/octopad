@@ -7,7 +7,7 @@ namespace OctoPad.UserInterface.MainWindow
     public interface IMainWindowView
     {
         List<ProjectGroup> ProjectGroups { get; set; }
-        void ShowLoginWindow();
+        void ShowLoginWindow(LoginCredentials settingsLoginCredentials);
         void ShowProgress(string message);
         void HideProgress(string message);
         event EventHandler ShowLoginWindowClicked;

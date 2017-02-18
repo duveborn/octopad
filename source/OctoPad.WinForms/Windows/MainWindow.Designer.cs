@@ -245,6 +245,7 @@ namespace OctoPad.WinForms.Windows
             this.ClientSize = new System.Drawing.Size(1347, 936);
             this.Controls.Add(this.bottomStatusStrip);
             this.Controls.Add(this.mainWindowSplitContainer);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainWindow";
             this.Text = "OctoPad";
             this.mainWindowSplitContainer.Panel1.ResumeLayout(false);

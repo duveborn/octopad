@@ -45,6 +45,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -62,6 +63,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="ISettingsRepository.cs" />
+    <Compile Include="Settings\EncryptionHelper.cs" />
     <Compile Include="Settings\SettingsRepository.cs" />
   </ItemGroup>
   <ItemGroup>

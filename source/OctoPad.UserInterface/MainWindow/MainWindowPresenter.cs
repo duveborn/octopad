@@ -31,26 +31,30 @@ namespace OctoPad.UserInterface.MainWindow
             return await Task.Run(() => octopus.GetReleases(projectId));
         }
 
-        private async void View_AcquiredLoginCredentials(object sender, System.EventArgs e)
+        private async void View_AcquiredLoginCredentials(object sender, EventArgs e)
         {
             var loginCredentials = sender as LoginCredentials;
-            
-            if(!octopus.Connect(loginCredentials?.Server, loginCredentials?.ApiKey))
-            {
-                view.ShowLoginWindow(loginCredentials);
-            }
-            else
-            {
-                settings.LoginCredentials = loginCredentials;
 
-                var stopwatch = new Stopwatch();
-                stopwatch.Start();
-                view.ShowProgress("Loading projects…");
-                var projectGroups = await GetProjectTree();
-                view.ProjectGroups = projectGroups;
-                stopwatch.Stop();
-                view.HideProgress($"Loaded {projectGroups.Count} projects in {(int) stopwatch.Elapsed.TotalSeconds} seconds");
+            // Attempt login with username first and if that fails, try api key, if that fails let's show the login dialog again
+            if (!octopus.Connect(loginCredentials?.Server, loginCredentials?.Username, loginCredentials?.Password))
+            {
+                if (!octopus.Connect(loginCredentials?.Server, loginCredentials?.ApiKey))
+                {
+                    view.ShowLoginWindow(loginCredentials);
+                    return;
+                }
             }
+
+            // Successful login, save the credentials
+            settings.LoginCredentials = loginCredentials;
+
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+            view.ShowProgress("Loading projects…");
+            var projectGroups = await GetProjectTree();
+            view.ProjectGroups = projectGroups;
+            stopwatch.Stop();
+            view.HideProgress($"Loaded {projectGroups.Count} projects in {(int) stopwatch.Elapsed.TotalSeconds} seconds");
         }
 
         private async Task<List<ProjectGroup>> GetProjectTree()

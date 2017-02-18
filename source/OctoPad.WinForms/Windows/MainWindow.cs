@@ -5,12 +5,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework.Controls;
+using MetroFramework.Forms;
 using OctoPad.Models;
 using OctoPad.UserInterface.MainWindow;
 
 namespace OctoPad.WinForms.Windows
 {
-    public partial class MainWindow : Form, IMainWindowView
+    public partial class MainWindow : MetroForm, IMainWindowView
     {
         public event EventHandler ShowLoginWindowClicked;
         public event EventHandler AcquiredLoginCredentials;
@@ -21,6 +22,8 @@ namespace OctoPad.WinForms.Windows
         public MainWindow()
         {
             InitializeComponent();
+            StyleManager = metroStyleManager;
+
             projectGroups = new List<ProjectGroup>();
             Show();
         }
@@ -75,7 +78,6 @@ namespace OctoPad.WinForms.Windows
 
         public void ShowProgress(string message)
         {
-            projectsTreeSpinner.Visible = true;
             statusLabel.Text = message;
             statusLabel.Visible = true;
             statusProgressBar.Visible = true;
@@ -83,7 +85,6 @@ namespace OctoPad.WinForms.Windows
 
         public void HideProgress(string message)
         {
-            projectsTreeSpinner.Visible = false;
             statusLabel.Text = message;
             statusLabel.Visible = true;
             statusProgressBar.Visible = false;

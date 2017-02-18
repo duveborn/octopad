@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework.Controls;
 using OctoPad.Models;
@@ -126,9 +127,9 @@ namespace OctoPad.WinForms.Windows
             }
         }
 
-        public void ShowProjectDetails(string url)
+        public async void ShowProjectDetails(string url)
         {
-            projectWebBrowser.Navigate(url);
+            await Task.Run(() => projectWebBrowser.Navigate(url));
         }
     }
 }

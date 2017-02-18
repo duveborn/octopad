@@ -34,73 +34,41 @@ namespace OctoPad.WinForms.Windows
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            this.mainWindowSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.projectsTreeSpinner = new MetroFramework.Controls.MetroProgressSpinner();
             this.projectsTreeView = new OctoPad.WinForms.Controls.DoubleBufferedTreeView();
             this.projectsIconsImageList = new System.Windows.Forms.ImageList(this.components);
             this.connectButton = new MetroFramework.Controls.MetroButton();
+            this.metroStyleManager = new MetroFramework.Components.MetroStyleManager(this.components);
+            this.leftPanel = new MetroFramework.Controls.MetroPanel();
+            this.statusLabel = new MetroFramework.Controls.MetroLabel();
+            this.statusProgressBar = new MetroFramework.Controls.MetroProgressBar();
             this.filterTextBox = new MetroFramework.Controls.MetroTextBox();
-            this.selectedProjectTabControl = new System.Windows.Forms.TabControl();
-            this.projectTab = new System.Windows.Forms.TabPage();
-            this.projectWebBrowser = new System.Windows.Forms.WebBrowser();
-            this.releasesListView = new System.Windows.Forms.ListView();
-            this.releaseColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.bottomStatusStrip = new System.Windows.Forms.StatusStrip();
-            this.statusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
-            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            ((System.ComponentModel.ISupportInitialize)(this.mainWindowSplitContainer)).BeginInit();
-            this.mainWindowSplitContainer.Panel1.SuspendLayout();
-            this.mainWindowSplitContainer.Panel2.SuspendLayout();
-            this.mainWindowSplitContainer.SuspendLayout();
-            this.selectedProjectTabControl.SuspendLayout();
-            this.projectTab.SuspendLayout();
-            this.bottomStatusStrip.SuspendLayout();
+            this.rightPanel = new MetroFramework.Controls.MetroPanel();
+            this.projectTabControl = new MetroFramework.Controls.MetroTabControl();
+            this.mainPanel = new MetroFramework.Controls.MetroPanel();
+            this.metroStyleExtender = new MetroFramework.Components.MetroStyleExtender(this.components);
+            this.projectTabContextMenu = new MetroFramework.Controls.MetroContextMenu(this.components);
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.themeComboBox = new MetroFramework.Controls.MetroComboBox();
+            ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).BeginInit();
+            this.leftPanel.SuspendLayout();
+            this.rightPanel.SuspendLayout();
+            this.mainPanel.SuspendLayout();
+            this.projectTabContextMenu.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // mainWindowSplitContainer
-            // 
-            this.mainWindowSplitContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.mainWindowSplitContainer.Location = new System.Drawing.Point(0, 0);
-            this.mainWindowSplitContainer.Name = "mainWindowSplitContainer";
-            // 
-            // mainWindowSplitContainer.Panel1
-            // 
-            this.mainWindowSplitContainer.Panel1.Controls.Add(this.projectsTreeSpinner);
-            this.mainWindowSplitContainer.Panel1.Controls.Add(this.projectsTreeView);
-            this.mainWindowSplitContainer.Panel1.Controls.Add(this.connectButton);
-            this.mainWindowSplitContainer.Panel1.Controls.Add(this.filterTextBox);
-            // 
-            // mainWindowSplitContainer.Panel2
-            // 
-            this.mainWindowSplitContainer.Panel2.Controls.Add(this.selectedProjectTabControl);
-            this.mainWindowSplitContainer.Size = new System.Drawing.Size(1347, 911);
-            this.mainWindowSplitContainer.SplitterDistance = 362;
-            this.mainWindowSplitContainer.TabIndex = 3;
-            // 
-            // projectsTreeSpinner
-            // 
-            this.projectsTreeSpinner.Location = new System.Drawing.Point(217, 321);
-            this.projectsTreeSpinner.Maximum = 100;
-            this.projectsTreeSpinner.Name = "projectsTreeSpinner";
-            this.projectsTreeSpinner.Size = new System.Drawing.Size(16, 16);
-            this.projectsTreeSpinner.TabIndex = 4;
-            this.projectsTreeSpinner.UseSelectable = true;
-            this.projectsTreeSpinner.Visible = false;
             // 
             // projectsTreeView
             // 
             this.projectsTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.metroStyleExtender.SetApplyMetroTheme(this.projectsTreeView, true);
+            this.projectsTreeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.projectsTreeView.ImageIndex = 0;
             this.projectsTreeView.ImageList = this.projectsIconsImageList;
-            this.projectsTreeView.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.projectsTreeView.Location = new System.Drawing.Point(3, 27);
+            this.projectsTreeView.Location = new System.Drawing.Point(3, 38);
             this.projectsTreeView.Name = "projectsTreeView";
             this.projectsTreeView.SelectedImageIndex = 0;
-            this.projectsTreeView.Size = new System.Drawing.Size(356, 884);
+            this.projectsTreeView.Size = new System.Drawing.Size(369, 656);
             this.projectsTreeView.TabIndex = 3;
             this.projectsTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.projectsTreeView_AfterSelect);
             // 
@@ -117,13 +85,57 @@ namespace OctoPad.WinForms.Windows
             // connectButton
             // 
             this.connectButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.connectButton.Location = new System.Drawing.Point(250, 3);
+            this.connectButton.Location = new System.Drawing.Point(263, 3);
             this.connectButton.Name = "connectButton";
-            this.connectButton.Size = new System.Drawing.Size(109, 23);
+            this.connectButton.Size = new System.Drawing.Size(109, 29);
             this.connectButton.TabIndex = 2;
             this.connectButton.Text = "Connect...";
             this.connectButton.UseSelectable = true;
             this.connectButton.Click += new System.EventHandler(this.ConnectButton_Click);
+            // 
+            // metroStyleManager
+            // 
+            this.metroStyleManager.Owner = this;
+            // 
+            // leftPanel
+            // 
+            this.leftPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.leftPanel.Controls.Add(this.statusLabel);
+            this.leftPanel.Controls.Add(this.statusProgressBar);
+            this.leftPanel.Controls.Add(this.filterTextBox);
+            this.leftPanel.Controls.Add(this.projectsTreeView);
+            this.leftPanel.Controls.Add(this.connectButton);
+            this.leftPanel.HorizontalScrollbarBarColor = true;
+            this.leftPanel.HorizontalScrollbarHighlightOnWheel = false;
+            this.leftPanel.HorizontalScrollbarSize = 10;
+            this.leftPanel.Location = new System.Drawing.Point(3, 6);
+            this.leftPanel.Name = "leftPanel";
+            this.leftPanel.Size = new System.Drawing.Size(375, 726);
+            this.leftPanel.TabIndex = 5;
+            this.leftPanel.VerticalScrollbarBarColor = true;
+            this.leftPanel.VerticalScrollbarHighlightOnWheel = false;
+            this.leftPanel.VerticalScrollbarSize = 10;
+            // 
+            // statusLabel
+            // 
+            this.statusLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.statusLabel.AutoSize = true;
+            this.statusLabel.Location = new System.Drawing.Point(3, 701);
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(45, 19);
+            this.statusLabel.TabIndex = 5;
+            this.statusLabel.Text = "Ready";
+            // 
+            // statusProgressBar
+            // 
+            this.statusProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.statusProgressBar.Location = new System.Drawing.Point(272, 700);
+            this.statusProgressBar.Name = "statusProgressBar";
+            this.statusProgressBar.ProgressBarStyle = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.statusProgressBar.Size = new System.Drawing.Size(100, 20);
+            this.statusProgressBar.TabIndex = 4;
+            this.statusProgressBar.Visible = false;
             // 
             // filterTextBox
             // 
@@ -133,149 +145,151 @@ namespace OctoPad.WinForms.Windows
             // 
             // 
             this.filterTextBox.CustomButton.Image = null;
-            this.filterTextBox.CustomButton.Location = new System.Drawing.Point(219, 1);
+            this.filterTextBox.CustomButton.Location = new System.Drawing.Point(228, 2);
             this.filterTextBox.CustomButton.Name = "";
-            this.filterTextBox.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.filterTextBox.CustomButton.Size = new System.Drawing.Size(23, 23);
             this.filterTextBox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.filterTextBox.CustomButton.TabIndex = 1;
             this.filterTextBox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.filterTextBox.CustomButton.UseSelectable = true;
             this.filterTextBox.CustomButton.Visible = false;
+            this.filterTextBox.DisplayIcon = true;
+            this.filterTextBox.FontSize = MetroFramework.MetroTextBoxSize.Medium;
+            this.filterTextBox.Icon = ((System.Drawing.Image)(resources.GetObject("filterTextBox.Icon")));
             this.filterTextBox.Lines = new string[0];
             this.filterTextBox.Location = new System.Drawing.Point(3, 3);
             this.filterTextBox.MaxLength = 32767;
             this.filterTextBox.Name = "filterTextBox";
             this.filterTextBox.PasswordChar = '\0';
+            this.filterTextBox.PromptText = "Search projects...";
             this.filterTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.filterTextBox.SelectedText = "";
             this.filterTextBox.SelectionLength = 0;
             this.filterTextBox.SelectionStart = 0;
-            this.filterTextBox.Size = new System.Drawing.Size(241, 23);
+            this.filterTextBox.ShortcutsEnabled = true;
+            this.filterTextBox.ShowClearButton = true;
+            this.filterTextBox.Size = new System.Drawing.Size(254, 28);
             this.filterTextBox.TabIndex = 1;
             this.filterTextBox.UseSelectable = true;
-            this.filterTextBox.WaterMark = "Search...";
+            this.filterTextBox.WaterMark = "Search projects...";
             this.filterTextBox.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.filterTextBox.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             this.filterTextBox.TextChanged += new System.EventHandler(this.FilterTextBox_TextChanged);
             this.filterTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FilterTextBox_KeyDown);
             // 
-            // selectedProjectTabControl
+            // rightPanel
             // 
-            this.selectedProjectTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.rightPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.selectedProjectTabControl.Controls.Add(this.projectTab);
-            this.selectedProjectTabControl.Location = new System.Drawing.Point(3, 3);
-            this.selectedProjectTabControl.Name = "selectedProjectTabControl";
-            this.selectedProjectTabControl.SelectedIndex = 0;
-            this.selectedProjectTabControl.Size = new System.Drawing.Size(975, 908);
-            this.selectedProjectTabControl.TabIndex = 1;
+            this.rightPanel.Controls.Add(this.projectTabControl);
+            this.rightPanel.HorizontalScrollbarBarColor = true;
+            this.rightPanel.HorizontalScrollbarHighlightOnWheel = false;
+            this.rightPanel.HorizontalScrollbarSize = 10;
+            this.rightPanel.Location = new System.Drawing.Point(384, 6);
+            this.rightPanel.Name = "rightPanel";
+            this.rightPanel.Size = new System.Drawing.Size(1034, 723);
+            this.rightPanel.TabIndex = 6;
+            this.rightPanel.VerticalScrollbarBarColor = true;
+            this.rightPanel.VerticalScrollbarHighlightOnWheel = false;
+            this.rightPanel.VerticalScrollbarSize = 10;
             // 
-            // projectTab
+            // projectTabControl
             // 
-            this.projectTab.Controls.Add(this.projectWebBrowser);
-            this.projectTab.Controls.Add(this.releasesListView);
-            this.projectTab.Location = new System.Drawing.Point(4, 22);
-            this.projectTab.Name = "projectTab";
-            this.projectTab.Padding = new System.Windows.Forms.Padding(3);
-            this.projectTab.Size = new System.Drawing.Size(967, 882);
-            this.projectTab.TabIndex = 0;
-            this.projectTab.Text = "Project";
-            this.projectTab.UseVisualStyleBackColor = true;
+            this.projectTabControl.ContextMenuStrip = this.projectTabContextMenu;
+            this.projectTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.projectTabControl.Location = new System.Drawing.Point(0, 0);
+            this.projectTabControl.Name = "projectTabControl";
+            this.projectTabControl.Size = new System.Drawing.Size(1034, 723);
+            this.projectTabControl.TabIndex = 2;
+            this.projectTabControl.UseSelectable = true;
             // 
-            // projectWebBrowser
+            // mainPanel
             // 
-            this.projectWebBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.projectWebBrowser.Location = new System.Drawing.Point(3, 3);
-            this.projectWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.projectWebBrowser.Name = "projectWebBrowser";
-            this.projectWebBrowser.Size = new System.Drawing.Size(961, 876);
-            this.projectWebBrowser.TabIndex = 1;
+            this.mainPanel.Controls.Add(this.rightPanel);
+            this.mainPanel.Controls.Add(this.leftPanel);
+            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainPanel.HorizontalScrollbarBarColor = true;
+            this.mainPanel.HorizontalScrollbarHighlightOnWheel = false;
+            this.mainPanel.HorizontalScrollbarSize = 10;
+            this.mainPanel.Location = new System.Drawing.Point(20, 60);
+            this.mainPanel.Name = "mainPanel";
+            this.mainPanel.Size = new System.Drawing.Size(1421, 732);
+            this.mainPanel.TabIndex = 7;
+            this.mainPanel.VerticalScrollbarBarColor = true;
+            this.mainPanel.VerticalScrollbarHighlightOnWheel = false;
+            this.mainPanel.VerticalScrollbarSize = 10;
             // 
-            // releasesListView
+            // projectTabContextMenu
             // 
-            this.releasesListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.releaseColumnHeader});
-            this.releasesListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.releasesListView.FullRowSelect = true;
-            this.releasesListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.releasesListView.HideSelection = false;
-            this.releasesListView.Location = new System.Drawing.Point(3, 3);
-            this.releasesListView.Name = "releasesListView";
-            this.releasesListView.Size = new System.Drawing.Size(961, 876);
-            this.releasesListView.TabIndex = 0;
-            this.releasesListView.UseCompatibleStateImageBehavior = false;
-            this.releasesListView.View = System.Windows.Forms.View.Details;
+            this.projectTabContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.closeToolStripMenuItem});
+            this.projectTabContextMenu.Name = "projectTabContextMenu";
+            this.projectTabContextMenu.Size = new System.Drawing.Size(104, 26);
             // 
-            // releaseColumnHeader
+            // closeToolStripMenuItem
             // 
-            this.releaseColumnHeader.Text = "Release";
-            this.releaseColumnHeader.Width = 519;
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.closeToolStripMenuItem.Text = "Close";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
-            // bottomStatusStrip
+            // themeComboBox
             // 
-            this.bottomStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.statusProgressBar,
-            this.statusLabel});
-            this.bottomStatusStrip.Location = new System.Drawing.Point(0, 914);
-            this.bottomStatusStrip.Name = "bottomStatusStrip";
-            this.bottomStatusStrip.Size = new System.Drawing.Size(1347, 22);
-            this.bottomStatusStrip.TabIndex = 4;
-            this.bottomStatusStrip.Text = "statusStrip1";
-            // 
-            // statusProgressBar
-            // 
-            this.statusProgressBar.ForeColor = System.Drawing.Color.DeepSkyBlue;
-            this.statusProgressBar.MarqueeAnimationSpeed = 40;
-            this.statusProgressBar.Name = "statusProgressBar";
-            this.statusProgressBar.Size = new System.Drawing.Size(100, 16);
-            this.statusProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.statusProgressBar.Visible = false;
-            // 
-            // statusLabel
-            // 
-            this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(0, 17);
+            this.themeComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.themeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.themeComboBox.FontSize = MetroFramework.MetroComboBoxSize.Small;
+            this.themeComboBox.FormattingEnabled = true;
+            this.themeComboBox.ItemHeight = 19;
+            this.themeComboBox.Items.AddRange(new object[] {
+            "Light",
+            "Dark"});
+            this.themeComboBox.Location = new System.Drawing.Point(1315, 4);
+            this.themeComboBox.Name = "themeComboBox";
+            this.themeComboBox.Size = new System.Drawing.Size(64, 25);
+            this.themeComboBox.TabIndex = 11;
+            this.themeComboBox.UseSelectable = true;
+            this.themeComboBox.SelectedIndexChanged += new System.EventHandler(this.themeComboBox_SelectedIndexChanged);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1347, 936);
-            this.Controls.Add(this.bottomStatusStrip);
-            this.Controls.Add(this.mainWindowSplitContainer);
+            this.ClientSize = new System.Drawing.Size(1461, 812);
+            this.Controls.Add(this.mainPanel);
+            this.Controls.Add(this.themeComboBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainWindow";
+            this.ShadowType = MetroFramework.Forms.MetroFormShadowType.DropShadow;
             this.Text = "OctoPad";
-            this.mainWindowSplitContainer.Panel1.ResumeLayout(false);
-            this.mainWindowSplitContainer.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.mainWindowSplitContainer)).EndInit();
-            this.mainWindowSplitContainer.ResumeLayout(false);
-            this.selectedProjectTabControl.ResumeLayout(false);
-            this.projectTab.ResumeLayout(false);
-            this.bottomStatusStrip.ResumeLayout(false);
-            this.bottomStatusStrip.PerformLayout();
+            this.Theme = MetroFramework.MetroThemeStyle.Default;
+            this.Shown += new System.EventHandler(this.MainWindow_Shown);
+            ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).EndInit();
+            this.leftPanel.ResumeLayout(false);
+            this.leftPanel.PerformLayout();
+            this.rightPanel.ResumeLayout(false);
+            this.mainPanel.ResumeLayout(false);
+            this.projectTabContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.SplitContainer mainWindowSplitContainer;
         private MetroFramework.Controls.MetroButton connectButton;
         private MetroFramework.Controls.MetroTextBox filterTextBox;
-        private System.Windows.Forms.StatusStrip bottomStatusStrip;
-        private System.Windows.Forms.ToolStripProgressBar statusProgressBar;
-        private System.Windows.Forms.ToolStripStatusLabel statusLabel;
-        private System.Windows.Forms.ListView releasesListView;
-        private System.Windows.Forms.ColumnHeader releaseColumnHeader;
-        private System.Windows.Forms.TabControl selectedProjectTabControl;
-        private System.Windows.Forms.TabPage projectTab;
         private DoubleBufferedTreeView projectsTreeView;
-        private System.Windows.Forms.WebBrowser projectWebBrowser;
-        private MetroFramework.Controls.MetroProgressSpinner projectsTreeSpinner;
         private System.Windows.Forms.ImageList projectsIconsImageList;
+        private MetroFramework.Components.MetroStyleManager metroStyleManager;
+        private MetroFramework.Controls.MetroPanel leftPanel;
+        private MetroFramework.Controls.MetroPanel rightPanel;
+        private MetroFramework.Controls.MetroPanel mainPanel;
+        private MetroFramework.Controls.MetroTabControl projectTabControl;
+        private MetroFramework.Components.MetroStyleExtender metroStyleExtender;
+        private MetroFramework.Controls.MetroLabel statusLabel;
+        private MetroFramework.Controls.MetroProgressBar statusProgressBar;
+        private MetroFramework.Controls.MetroContextMenu projectTabContextMenu;
+        private ToolStripMenuItem closeToolStripMenuItem;
+        private MetroFramework.Controls.MetroComboBox themeComboBox;
     }
 }
 

@@ -99,7 +99,7 @@ namespace OctoPad.UserInterface.MainWindow
         {
             var url = settings.LoginCredentials.Server + view.SelectedProject.Links.First(link => link.Name == "Web").Uri;
 
-            view.ShowProjectDetails(url);
+            view.ShowProjectDetails(url, view.SelectedProject.Name);
         }
     }
 }

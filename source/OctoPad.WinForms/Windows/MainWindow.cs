@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework;
 using MetroFramework.Controls;
 using MetroFramework.Forms;
 using OctoPad.Models;
@@ -23,9 +24,16 @@ namespace OctoPad.WinForms.Windows
         {
             InitializeComponent();
             StyleManager = metroStyleManager;
+            StyleManager.Theme = (MetroThemeStyle) Properties.Settings.Default.Theme;
+            themeComboBox.Text = StyleManager.Theme.ToString();
 
             projectGroups = new List<ProjectGroup>();
             Show();
+        }
+
+        private void MainWindow_Shown(object sender, EventArgs e)
+        {
+            ConnectButton_Click(null, EventArgs.Empty);
         }
 
         public List<ProjectGroup> ProjectGroups
@@ -128,9 +136,50 @@ namespace OctoPad.WinForms.Windows
             }
         }
 
-        public async void ShowProjectDetails(string url)
+        public async void ShowProjectDetails(string url, string name)
         {
-            await Task.Run(() => projectWebBrowser.Navigate(url));
+            foreach (MetroTabPage tab in projectTabControl.TabPages)
+            {
+                if (tab.Text != name) continue;
+                projectTabControl.SelectedTab = tab;
+                return;
+            }
+
+            var projectTab = new MetroTabPage {Text = name, DockPadding = {Top = 5}};
+            var webBrowser = new WebBrowser {Dock = DockStyle.Fill };
+            projectTab.Controls.Add(webBrowser);
+            projectTabControl.TabPages.Add(projectTab);
+            projectTabControl.SelectedTab = projectTab;
+
+            await Task.Run(() => webBrowser.Navigate(url));
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            for (var i = 0; i < projectTabControl.TabCount; ++i)
+            {
+                if (projectTabControl.GetTabRect(i).Contains(projectTabControl.PointToClient(MousePosition)))
+                {
+                    projectTabControl.TabPages.RemoveAt(i);
+                }
+            }
+            
+        }
+
+        private void themeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (themeComboBox.Text == @"Dark")
+            {
+                metroStyleManager.Theme = MetroThemeStyle.Dark;
+                Properties.Settings.Default.Theme = (int)MetroThemeStyle.Dark;
+            }
+            else
+            {
+                metroStyleManager.Theme = MetroThemeStyle.Light;
+                Properties.Settings.Default.Theme = (int)MetroThemeStyle.Light;
+            }
+
+            Properties.Settings.Default.Save();
         }
     }
 }

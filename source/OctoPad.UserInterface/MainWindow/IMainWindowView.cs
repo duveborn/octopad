@@ -14,6 +14,6 @@ namespace OctoPad.UserInterface.MainWindow
         event EventHandler ShowLoginWindowClicked;
         event EventHandler AcquiredLoginCredentials;
         event EventHandler SelectedProjectChanged;
-        void ShowProjectDetails(string viewSelectedProjectName);
+        void ShowProjectDetails(string selectedProjectName, string viewSelectedProjectName);
     }
 }

@@ -1,4 +1,6 @@
-﻿using OctoPad.WinForms.Controls;
+﻿using System.Windows.Forms;
+using MetroFramework;
+using OctoPad.WinForms.Controls;
 
 namespace OctoPad.WinForms.Windows
 {
@@ -30,25 +32,29 @@ namespace OctoPad.WinForms.Windows
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.mainWindowSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.projectsTreeSpinner = new MetroFramework.Controls.MetroProgressSpinner();
             this.projectsTreeView = new OctoPad.WinForms.Controls.DoubleBufferedTreeView();
+            this.projectsIconsImageList = new System.Windows.Forms.ImageList(this.components);
             this.connectButton = new MetroFramework.Controls.MetroButton();
             this.filterTextBox = new MetroFramework.Controls.MetroTextBox();
             this.selectedProjectTabControl = new System.Windows.Forms.TabControl();
             this.projectTab = new System.Windows.Forms.TabPage();
+            this.projectWebBrowser = new System.Windows.Forms.WebBrowser();
             this.releasesListView = new System.Windows.Forms.ListView();
             this.releaseColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.bottomStatusStrip = new System.Windows.Forms.StatusStrip();
             this.statusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.projectWebBrowser = new System.Windows.Forms.WebBrowser();
             ((System.ComponentModel.ISupportInitialize)(this.mainWindowSplitContainer)).BeginInit();
             this.mainWindowSplitContainer.Panel1.SuspendLayout();
             this.mainWindowSplitContainer.Panel2.SuspendLayout();
             this.mainWindowSplitContainer.SuspendLayout();
             this.selectedProjectTabControl.SuspendLayout();
             this.projectTab.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
+            this.bottomStatusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainWindowSplitContainer
@@ -61,6 +67,7 @@ namespace OctoPad.WinForms.Windows
             // 
             // mainWindowSplitContainer.Panel1
             // 
+            this.mainWindowSplitContainer.Panel1.Controls.Add(this.projectsTreeSpinner);
             this.mainWindowSplitContainer.Panel1.Controls.Add(this.projectsTreeView);
             this.mainWindowSplitContainer.Panel1.Controls.Add(this.connectButton);
             this.mainWindowSplitContainer.Panel1.Controls.Add(this.filterTextBox);
@@ -68,26 +75,49 @@ namespace OctoPad.WinForms.Windows
             // mainWindowSplitContainer.Panel2
             // 
             this.mainWindowSplitContainer.Panel2.Controls.Add(this.selectedProjectTabControl);
-            this.mainWindowSplitContainer.Size = new System.Drawing.Size(1002, 651);
-            this.mainWindowSplitContainer.SplitterDistance = 469;
+            this.mainWindowSplitContainer.Size = new System.Drawing.Size(1347, 911);
+            this.mainWindowSplitContainer.SplitterDistance = 362;
             this.mainWindowSplitContainer.TabIndex = 3;
+            // 
+            // projectsTreeSpinner
+            // 
+            this.projectsTreeSpinner.Location = new System.Drawing.Point(217, 321);
+            this.projectsTreeSpinner.Maximum = 100;
+            this.projectsTreeSpinner.Name = "projectsTreeSpinner";
+            this.projectsTreeSpinner.Size = new System.Drawing.Size(16, 16);
+            this.projectsTreeSpinner.TabIndex = 4;
+            this.projectsTreeSpinner.UseSelectable = true;
+            this.projectsTreeSpinner.Visible = false;
             // 
             // projectsTreeView
             // 
             this.projectsTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.projectsTreeView.ImageIndex = 0;
+            this.projectsTreeView.ImageList = this.projectsIconsImageList;
             this.projectsTreeView.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.projectsTreeView.Location = new System.Drawing.Point(3, 27);
             this.projectsTreeView.Name = "projectsTreeView";
-            this.projectsTreeView.Size = new System.Drawing.Size(463, 624);
+            this.projectsTreeView.SelectedImageIndex = 0;
+            this.projectsTreeView.Size = new System.Drawing.Size(356, 884);
             this.projectsTreeView.TabIndex = 3;
             this.projectsTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.projectsTreeView_AfterSelect);
+            // 
+            // projectsIconsImageList
+            // 
+            this.projectsIconsImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("projectsIconsImageList.ImageStream")));
+            this.projectsIconsImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.projectsIconsImageList.Images.SetKeyName(0, "project-ok");
+            this.projectsIconsImageList.Images.SetKeyName(1, "folder");
+            this.projectsIconsImageList.Images.SetKeyName(2, "folder-ok");
+            this.projectsIconsImageList.Images.SetKeyName(3, "folder-error");
+            this.projectsIconsImageList.Images.SetKeyName(4, "folder-disabled");
             // 
             // connectButton
             // 
             this.connectButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.connectButton.Location = new System.Drawing.Point(357, 3);
+            this.connectButton.Location = new System.Drawing.Point(250, 3);
             this.connectButton.Name = "connectButton";
             this.connectButton.Size = new System.Drawing.Size(109, 23);
             this.connectButton.TabIndex = 2;
@@ -103,7 +133,7 @@ namespace OctoPad.WinForms.Windows
             // 
             // 
             this.filterTextBox.CustomButton.Image = null;
-            this.filterTextBox.CustomButton.Location = new System.Drawing.Point(326, 1);
+            this.filterTextBox.CustomButton.Location = new System.Drawing.Point(219, 1);
             this.filterTextBox.CustomButton.Name = "";
             this.filterTextBox.CustomButton.Size = new System.Drawing.Size(21, 21);
             this.filterTextBox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
@@ -120,10 +150,10 @@ namespace OctoPad.WinForms.Windows
             this.filterTextBox.SelectedText = "";
             this.filterTextBox.SelectionLength = 0;
             this.filterTextBox.SelectionStart = 0;
-            this.filterTextBox.Size = new System.Drawing.Size(348, 23);
+            this.filterTextBox.Size = new System.Drawing.Size(241, 23);
             this.filterTextBox.TabIndex = 1;
             this.filterTextBox.UseSelectable = true;
-            this.filterTextBox.WaterMark = "Filter projects";
+            this.filterTextBox.WaterMark = "Search...";
             this.filterTextBox.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.filterTextBox.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             this.filterTextBox.TextChanged += new System.EventHandler(this.FilterTextBox_TextChanged);
@@ -138,7 +168,7 @@ namespace OctoPad.WinForms.Windows
             this.selectedProjectTabControl.Location = new System.Drawing.Point(3, 3);
             this.selectedProjectTabControl.Name = "selectedProjectTabControl";
             this.selectedProjectTabControl.SelectedIndex = 0;
-            this.selectedProjectTabControl.Size = new System.Drawing.Size(523, 648);
+            this.selectedProjectTabControl.Size = new System.Drawing.Size(975, 908);
             this.selectedProjectTabControl.TabIndex = 1;
             // 
             // projectTab
@@ -148,10 +178,19 @@ namespace OctoPad.WinForms.Windows
             this.projectTab.Location = new System.Drawing.Point(4, 22);
             this.projectTab.Name = "projectTab";
             this.projectTab.Padding = new System.Windows.Forms.Padding(3);
-            this.projectTab.Size = new System.Drawing.Size(515, 622);
+            this.projectTab.Size = new System.Drawing.Size(967, 882);
             this.projectTab.TabIndex = 0;
             this.projectTab.Text = "Project";
             this.projectTab.UseVisualStyleBackColor = true;
+            // 
+            // projectWebBrowser
+            // 
+            this.projectWebBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.projectWebBrowser.Location = new System.Drawing.Point(3, 3);
+            this.projectWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.projectWebBrowser.Name = "projectWebBrowser";
+            this.projectWebBrowser.Size = new System.Drawing.Size(961, 876);
+            this.projectWebBrowser.TabIndex = 1;
             // 
             // releasesListView
             // 
@@ -163,7 +202,7 @@ namespace OctoPad.WinForms.Windows
             this.releasesListView.HideSelection = false;
             this.releasesListView.Location = new System.Drawing.Point(3, 3);
             this.releasesListView.Name = "releasesListView";
-            this.releasesListView.Size = new System.Drawing.Size(509, 616);
+            this.releasesListView.Size = new System.Drawing.Size(961, 876);
             this.releasesListView.TabIndex = 0;
             this.releasesListView.UseCompatibleStateImageBehavior = false;
             this.releasesListView.View = System.Windows.Forms.View.Details;
@@ -173,19 +212,20 @@ namespace OctoPad.WinForms.Windows
             this.releaseColumnHeader.Text = "Release";
             this.releaseColumnHeader.Width = 519;
             // 
-            // statusStrip1
+            // bottomStatusStrip
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bottomStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusProgressBar,
             this.statusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 654);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1002, 22);
-            this.statusStrip1.TabIndex = 4;
-            this.statusStrip1.Text = "statusStrip1";
+            this.bottomStatusStrip.Location = new System.Drawing.Point(0, 914);
+            this.bottomStatusStrip.Name = "bottomStatusStrip";
+            this.bottomStatusStrip.Size = new System.Drawing.Size(1347, 22);
+            this.bottomStatusStrip.TabIndex = 4;
+            this.bottomStatusStrip.Text = "statusStrip1";
             // 
             // statusProgressBar
             // 
+            this.statusProgressBar.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.statusProgressBar.MarqueeAnimationSpeed = 40;
             this.statusProgressBar.Name = "statusProgressBar";
             this.statusProgressBar.Size = new System.Drawing.Size(100, 16);
@@ -197,22 +237,13 @@ namespace OctoPad.WinForms.Windows
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(0, 17);
             // 
-            // projectWebBrowser
-            // 
-            this.projectWebBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.projectWebBrowser.Location = new System.Drawing.Point(3, 3);
-            this.projectWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.projectWebBrowser.Name = "projectWebBrowser";
-            this.projectWebBrowser.Size = new System.Drawing.Size(509, 616);
-            this.projectWebBrowser.TabIndex = 1;
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1002, 676);
-            this.Controls.Add(this.statusStrip1);
+            this.ClientSize = new System.Drawing.Size(1347, 936);
+            this.Controls.Add(this.bottomStatusStrip);
             this.Controls.Add(this.mainWindowSplitContainer);
             this.Name = "MainWindow";
             this.Text = "OctoPad";
@@ -222,8 +253,8 @@ namespace OctoPad.WinForms.Windows
             this.mainWindowSplitContainer.ResumeLayout(false);
             this.selectedProjectTabControl.ResumeLayout(false);
             this.projectTab.ResumeLayout(false);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.bottomStatusStrip.ResumeLayout(false);
+            this.bottomStatusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -233,7 +264,7 @@ namespace OctoPad.WinForms.Windows
         private System.Windows.Forms.SplitContainer mainWindowSplitContainer;
         private MetroFramework.Controls.MetroButton connectButton;
         private MetroFramework.Controls.MetroTextBox filterTextBox;
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip bottomStatusStrip;
         private System.Windows.Forms.ToolStripProgressBar statusProgressBar;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.ListView releasesListView;
@@ -242,6 +273,8 @@ namespace OctoPad.WinForms.Windows
         private System.Windows.Forms.TabPage projectTab;
         private DoubleBufferedTreeView projectsTreeView;
         private System.Windows.Forms.WebBrowser projectWebBrowser;
+        private MetroFramework.Controls.MetroProgressSpinner projectsTreeSpinner;
+        private System.Windows.Forms.ImageList projectsIconsImageList;
     }
 }
 

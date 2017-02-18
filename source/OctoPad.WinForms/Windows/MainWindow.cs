@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -38,8 +37,8 @@ namespace OctoPad.WinForms.Windows
 
                 var rootNodes = projectGroups.Select(
                     projectGroup => new TreeNode(projectGroup.Name, projectGroup.Projects.Select(
-                        project => new TreeNode(project.Name) {Tag = project })
-                        .ToArray()))
+                        project => new TreeNode(project.Name) {Tag = project, ImageKey = @"project-ok", SelectedImageKey = @"project-ok"})
+                        .ToArray()) {ImageKey = @"folder", SelectedImageKey = @"folder"})
                     .ToArray();
 
                 foreach (var rootNode in rootNodes)
@@ -75,6 +74,7 @@ namespace OctoPad.WinForms.Windows
 
         public void ShowProgress(string message)
         {
+            projectsTreeSpinner.Visible = true;
             statusLabel.Text = message;
             statusLabel.Visible = true;
             statusProgressBar.Visible = true;
@@ -82,6 +82,7 @@ namespace OctoPad.WinForms.Windows
 
         public void HideProgress(string message)
         {
+            projectsTreeSpinner.Visible = false;
             statusLabel.Text = message;
             statusLabel.Visible = true;
             statusProgressBar.Visible = false;
@@ -92,8 +93,8 @@ namespace OctoPad.WinForms.Windows
             var filteredRootNodes = projectGroups.Select(
                     projectGroup => new TreeNode(projectGroup.Name, projectGroup.Projects.Where(
                             project => CultureInfo.CurrentCulture.CompareInfo.IndexOf(project.Name, filterTextBox.Text, CompareOptions.IgnoreCase) >= 0).Select(
-                            project => new TreeNode(project.Name) { Tag = project })
-                        .ToArray()))
+                            project => new TreeNode(project.Name) { Tag = project, ImageKey = @"project-ok", SelectedImageKey = @"project-ok" })
+                        .ToArray()) { ImageKey = @"folder", SelectedImageKey = @"folder" }) 
                 .ToList();
 
             filteredRootNodes.ForEach(node => node.ExpandAll());

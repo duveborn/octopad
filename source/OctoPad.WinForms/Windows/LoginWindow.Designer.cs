@@ -123,7 +123,6 @@
             this.apiKeyTextBox.TabIndex = 6;
             this.apiKeyTextBox.Theme = MetroFramework.MetroThemeStyle.Light;
             this.apiKeyTextBox.UseSelectable = true;
-            this.apiKeyTextBox.WaterMark = "API-KMCUJO8GX**************";
             this.apiKeyTextBox.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.apiKeyTextBox.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
@@ -154,7 +153,7 @@
             this.loginTabControl.Controls.Add(this.apiKeyTab);
             this.loginTabControl.Location = new System.Drawing.Point(15, 96);
             this.loginTabControl.Name = "loginTabControl";
-            this.loginTabControl.SelectedIndex = 0;
+            this.loginTabControl.SelectedIndex = 1;
             this.loginTabControl.Size = new System.Drawing.Size(312, 105);
             this.loginTabControl.TabIndex = 3;
             this.loginTabControl.TabStop = false;
@@ -208,7 +207,6 @@
             this.passwordTextBox.Theme = MetroFramework.MetroThemeStyle.Light;
             this.passwordTextBox.UseSelectable = true;
             this.passwordTextBox.UseSystemPasswordChar = true;
-            this.passwordTextBox.WaterMark = "●●●●●●●●●●";
             this.passwordTextBox.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.passwordTextBox.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
@@ -239,7 +237,7 @@
             this.usernameTextBox.Location = new System.Drawing.Point(83, 6);
             this.usernameTextBox.MaxLength = 32767;
             this.usernameTextBox.Name = "usernameTextBox";
-            this.usernameTextBox.PasswordChar = '•';
+            this.usernameTextBox.PasswordChar = '\0';
             this.usernameTextBox.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.usernameTextBox.SelectedText = "";
             this.usernameTextBox.SelectionLength = 0;
@@ -248,7 +246,6 @@
             this.usernameTextBox.TabIndex = 0;
             this.usernameTextBox.Theme = MetroFramework.MetroThemeStyle.Light;
             this.usernameTextBox.UseSelectable = true;
-            this.usernameTextBox.WaterMark = "jane";
             this.usernameTextBox.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.usernameTextBox.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
@@ -287,6 +284,7 @@
             this.apiKeyLinkLabel.Name = "apiKeyLinkLabel";
             this.apiKeyLinkLabel.Size = new System.Drawing.Size(129, 13);
             this.apiKeyLinkLabel.TabIndex = 10;
+            this.apiKeyLinkLabel.TabStop = true;
             this.apiKeyLinkLabel.Text = "How to create an API key";
             this.apiKeyLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.apiKeyLinkLabel_LinkClicked);
             // 
@@ -311,6 +309,7 @@
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Connect to Octopus Deploy";
+            this.Theme = MetroFramework.MetroThemeStyle.Default;
             this.loginTabControl.ResumeLayout(false);
             this.usernamePasswordTab.ResumeLayout(false);
             this.usernamePasswordTab.PerformLayout();

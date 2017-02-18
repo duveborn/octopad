@@ -24,7 +24,8 @@ namespace OctoPad.WinForms.Windows
                     Server = serverTextBox.Text,
                     ApiKey = apiKeyTextBox.Text,
                     Username = usernameTextBox.Text,
-                    Password = passwordTextBox.Text
+                    Password = passwordTextBox.Text,
+                    AuthenticationMethod = GetSelectedAuthenticationMethod()
                 };
             }
             set
@@ -33,9 +34,36 @@ namespace OctoPad.WinForms.Windows
                 apiKeyTextBox.Text = value.ApiKey;
                 usernameTextBox.Text = value.Username;
                 passwordTextBox.Text = value.Password;
-
-                loginTabControl.SelectedTab = string.IsNullOrEmpty(value.Username) && !string.IsNullOrEmpty(value.ApiKey) ? apiKeyTab : usernamePasswordTab;
+                SetSelectedAuthenticationTab(value.AuthenticationMethod);
             }
+        }
+
+        private void SetSelectedAuthenticationTab(AuthenticationMethod authenticationMethod)
+        {
+            if (authenticationMethod == AuthenticationMethod.ApiKey)
+            {
+                loginTabControl.SelectedTab = apiKeyTab;
+            }
+
+            if (authenticationMethod == AuthenticationMethod.Username)
+            {
+                loginTabControl.SelectedTab = usernamePasswordTab;
+            }
+        }
+
+        private AuthenticationMethod GetSelectedAuthenticationMethod()
+        {
+            if (loginTabControl.SelectedTab == apiKeyTab)
+            {
+                return AuthenticationMethod.ApiKey;
+            }
+
+            if (loginTabControl.SelectedTab == usernamePasswordTab)
+            {
+                return AuthenticationMethod.Username;
+            }
+
+            return AuthenticationMethod.Username;
         }
 
         private void connectButton_Click(object sender, EventArgs e)

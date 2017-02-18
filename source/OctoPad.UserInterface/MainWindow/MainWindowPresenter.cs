@@ -33,19 +33,41 @@ namespace OctoPad.UserInterface.MainWindow
 
         private async void View_AcquiredLoginCredentials(object sender, EventArgs e)
         {
+            view.ShowProgress("Connecting to server…");
             var loginCredentials = sender as LoginCredentials;
 
-            // Attempt login with username first and if that fails, try api key, if that fails let's show the login dialog again
-            if (!octopus.Connect(loginCredentials?.Server, loginCredentials?.Username, loginCredentials?.Password))
+            if (loginCredentials == null)
             {
-                if (!octopus.Connect(loginCredentials?.Server, loginCredentials?.ApiKey))
-                {
-                    view.ShowLoginWindow(loginCredentials);
-                    return;
-                }
+                OnFailedLogin(null);
             }
 
-            // Successful login, save the credentials
+            var successfulLogin = await Task.Run(() => Connect(loginCredentials));
+
+            if (successfulLogin)
+            {
+                OnSuccessfulLogin(loginCredentials);
+            }
+            else
+            {
+                OnFailedLogin(loginCredentials);
+            }
+        }
+
+        private bool Connect(LoginCredentials loginCredentials)
+        {
+            switch (loginCredentials.AuthenticationMethod)
+            {
+                case AuthenticationMethod.ApiKey:
+                    return octopus.Connect(loginCredentials?.Server, loginCredentials?.ApiKey);
+                case AuthenticationMethod.Username:
+                    return octopus.Connect(loginCredentials?.Server, loginCredentials?.Username, loginCredentials?.Password);
+                default:
+                    return false;
+            }
+        }
+
+        private async void OnSuccessfulLogin(LoginCredentials loginCredentials)
+        {
             settings.LoginCredentials = loginCredentials;
 
             var stopwatch = new Stopwatch();
@@ -54,7 +76,13 @@ namespace OctoPad.UserInterface.MainWindow
             var projectGroups = await GetProjectTree();
             view.ProjectGroups = projectGroups;
             stopwatch.Stop();
-            view.HideProgress($"Loaded {projectGroups.Count} projects in {(int) stopwatch.Elapsed.TotalSeconds} seconds");
+            view.HideProgress($"Loaded {projectGroups.Count} projects in {(int)stopwatch.Elapsed.TotalSeconds} seconds");
+        }
+
+        private void OnFailedLogin(LoginCredentials loginCredentials)
+        {
+            view.HideProgress("Connection failed");
+            view.ShowLoginWindow(loginCredentials);
         }
 
         private async Task<List<ProjectGroup>> GetProjectTree()

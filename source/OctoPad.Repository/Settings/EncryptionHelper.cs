@@ -11,7 +11,7 @@ namespace OctoPad.Repository.Settings
 
         public static string EncryptString(string input)
         {
-            var encryptedData = ProtectedData.Protect(System.Text.Encoding.Unicode.GetBytes(ToInsecureString(ToSecureString(input))), Entropy, DataProtectionScope.CurrentUser);
+            var encryptedData = ProtectedData.Protect(System.Text.Encoding.Unicode.GetBytes(input), Entropy, DataProtectionScope.CurrentUser);
             return Convert.ToBase64String(encryptedData);
         }
 
@@ -20,11 +20,11 @@ namespace OctoPad.Repository.Settings
             try
             {
                 var decryptedData = ProtectedData.Unprotect(Convert.FromBase64String(encryptedData), Entropy, DataProtectionScope.CurrentUser);
-                return ToSecureString(System.Text.Encoding.Unicode.GetString(decryptedData)).ToString();
+                return System.Text.Encoding.Unicode.GetString(decryptedData);
             }
             catch
             {
-                return new SecureString().ToString();
+                return String.Empty;
             }
         }
 

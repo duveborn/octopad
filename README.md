@@ -3,6 +3,10 @@ Octopus Deploy Desktop Client
 
 Work-in-progress solution to the quirky project navigation web site of Octopus Deploy.
 
+Get the latest release: https://github.com/duveborn/octopad/releases/latest
+
+It will automatically update using Squirrel in the background.
+
 Completed features
 ------------------
 - Fast load and instant project free-text filter search

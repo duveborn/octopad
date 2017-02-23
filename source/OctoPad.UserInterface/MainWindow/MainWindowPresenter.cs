@@ -76,7 +76,10 @@ namespace OctoPad.UserInterface.MainWindow
             var projectGroups = await GetProjectTree();
             view.ProjectGroups = projectGroups;
             stopwatch.Stop();
-            view.HideProgress($"Loaded {projectGroups.Count} projects in {(int)stopwatch.Elapsed.TotalSeconds} seconds");
+
+            var projectsCount = projectGroups.Sum(projectGroup => projectGroup.Projects.Count());
+
+            view.HideProgress($"Loaded {projectsCount} projects in {(int)stopwatch.Elapsed.TotalSeconds} seconds");
         }
 
         private void OnFailedLogin(LoginCredentials loginCredentials)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework;
@@ -26,6 +27,9 @@ namespace OctoPad.WinForms.Windows
             StyleManager = metroStyleManager;
             StyleManager.Theme = (MetroThemeStyle) Properties.Settings.Default.Theme;
             themeComboBox.Text = StyleManager.Theme.ToString();
+
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            versionLabel.Text = assembly.GetName().Version.ToString(3);
 
             projectGroups = new List<ProjectGroup>();
             Show();

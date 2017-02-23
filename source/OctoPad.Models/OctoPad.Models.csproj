@@ -56,9 +56,9 @@
     <Compile Include="LoginCredentials.cs" />
     <Compile Include="Environment.cs" />
     <Compile Include="ProjectGroup.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Release.cs" />
     <Compile Include="Project.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Step.cs" />
   </ItemGroup>
   <ItemGroup>

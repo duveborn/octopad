@@ -15,6 +15,8 @@ namespace OctoPad.Startup
         [STAThread]
         static void Main()
         {
+            Update();
+
             var view = new MainWindow();
             var repository = new OctoPadRepository();
             var settings = new SettingsRepository();
@@ -23,7 +25,6 @@ namespace OctoPad.Startup
             Application.EnableVisualStyles();
             Application.Run(view);
 
-            Update();
         }
 
         private static async void Update()

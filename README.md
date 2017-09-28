@@ -3,7 +3,9 @@ Octopus Deploy Desktop Client
 
 Work-in-progress solution to the quirky project navigation web site of Octopus Deploy.
 
-Get the latest release: https://github.com/duveborn/octopad/releases/latest
+Install the latest release: https://github.com/duveborn/octopad/releases/download/1.1.2/Setup.exe
+
+NOTE: No code-signing certificate yet so you'll need to proceed through the Windows warning dialog to install it.
 
 It will automatically update using Squirrel in the background.
 
